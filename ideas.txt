@@ -4,3 +4,10 @@ Ideas:
 2. Team picture application
 3. Hackathon logistics application.
 4. Evacuation helper platform -- broadcast and then localize and direct masses
+5. Crowdsourcing 
+
+
+Inventory Management, Supply Chain w/ Currency Exchange
+
+    Need a dataset of inventory with price data
+    Webapp based
