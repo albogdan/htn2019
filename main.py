@@ -1,39 +1,17 @@
 import os
 import json
 
-rootdir_messages = './data/messages/inbox'
-user_name = 'Justin Kreiner'
+"""This is the routing file - all pages of website will be directed from here"""
+from application import create_app, cli
 
-'''
-[
-	{
-		'conv_name': string,
-		'participants': { [ { 'name':string } ] },
-		'statistics': {
-			'message_count': int
-		}
-	}
-]
-'''
-conversation_data = list()
+# Create the flask application
+flask_app = create_app()
 
-for subdir, dirs, files in os.walk(rootdir_messages):
-	if ('message_1.json' not in files):
-		continue
+# Register custom CLI commands
+cli.register(flask_app)
 
-	path = subdir + '/message_1.json'
-	with open(path) as json_file:
-		conversation = json.load(json_file)
+# if __name__ == "__main__":
+#     flask_app.run(host='192.168.1.214', port=8081)
 
-		obj = dict()
-		conv_name = conversation['thread_path'].split('/')[1]
-		obj['conv_name'] = conv_name
-		obj['participants'] = conversation['participants']
-		stats = dict()
-		stats['message_count'] = len(conversation['messages'])
-		obj['statistics'] = stats
-		
-		conversation_data.append(obj)
-
-print(conversation_data)
-	
+if __name__ == "__main__":
+    flask_app.run(host='127.0.0.1', port=8080)
