@@ -1,0 +1,6 @@
+Ideas:
+
+1. Simulator
+2. Team picture application
+3. Hackathon logistics application.
+4. Evacuation helper platform -- broadcast and then localize and direct masses
