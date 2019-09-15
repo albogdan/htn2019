@@ -45,13 +45,21 @@ def register_callbacks(dashapp):
             name="name"
         ),
         layout = go.Layout(
+            height=900, 
             xaxis={
                 'title': 'x-axis',
-                'type': 'linear' #if xaxis_type == 'Linear' else 'log'
+                'type': 'linear', #if xaxis_type == 'Linear' else 'log'
+                'showgrid': False,
+                'zeroline': False,
+                'showticklabels': False
             },
             yaxis={
                 'title': 'y-axis ',
-                'type': 'linear' #if yaxis_type == 'Linear' else 'log'
+                'type': 'linear', #if yaxis_type == 'Linear' else 'log'
+                'showgrid': False,
+                'zeroline': False,
+                'showticklabels': False
             }
         )
+
         return {'data':fig}

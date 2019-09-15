@@ -8,8 +8,8 @@ def message_counter():
     """
     Goes thru the JSON of the messages and counts the number of times you have messaged that person
     """
-    rootdir_messages = './application/data_local/messages/inbox'
-    temp_file_dir = './temp_data.json'
+    rootdir_messages = './application/data/messages/inbox'
+    temp_file_dir = './application/visualizer/temp_data.json'
 
     '''
     [
