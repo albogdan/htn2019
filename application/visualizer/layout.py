@@ -4,6 +4,7 @@ import numpy as np
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_dangerously_set_inner_html
+
 colors = {
     'background': '#0',
     'text': '#7FDBFF'
@@ -131,9 +132,9 @@ layout = html.Div(style={'backgroundColor':colors['background']}, children=[
 
     ),
     
-    html.Div([
-        dcc.Graph(id='negative_sentiment', style={'height':600}),
-        dcc.Input(id='hidden_negative_sentiment', type='hidden')
-    ])          
+    # html.Div([
+    #     dcc.Graph(id='negative_sentiment', style={'height':600}),
+    #     dcc.Input(id='hidden_negative_sentiment', type='value')
+    # ])          
 
 ])

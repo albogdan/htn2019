@@ -40,6 +40,37 @@
       color:#6b2587;
     }
 
+    #home-nav{
+      position: absolute;
+      margin-left: -125px; 
+      color:white;
+      top: 400px;
+      text-align: center;
+      left: 50%; 
+      width: 250px;
+      height: 75px;
+      padding: 20px;
+      border-style: solid; 
+      border-width: 2px;
+      background-color: limegreen;
+      font-family: 'Open Sans Condensed', sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.1em;
+      text-decoration: none; 
+      z-index: 2;
+    }
+
+    #uploadlink{
+      position: absolute;
+      margin-left: -120px; 
+      color:white;
+      top: 300px;
+      text-align: center;
+      left: 50%; 
+      z-index: 2;
+      font-size: 22px;
+    }
+
 </style>
 <!--Navbar Materialize-->
 
@@ -54,11 +85,22 @@
     <header>
         <nav>
             <div class="nav-wrapper">
-                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <!-- <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li id="home-nav" class="active"><a href="{{ url_for('home.index') }}">Home</a></li>
-                    <li id="dash-nav"><a href="{{ url_for('home.visualizer') }}">Visualizer</a></li>
-                </ul>
+                    <li id="dash-nav"><a href="{{ url_for('home.index') }}">Home</a></li>
+                </ul> -->
+
+                <script type="text/javascript">
+                  function getfolder(e) {
+                    var files = e.target.files;
+                    var path = files[0].webkitRelativePath;
+                    var Folder = path.split("/");
+                    //FOLDER HOLDS THE FOLDER
+                  }
+                </script>
+                
+                <input type="file" id="uploadlink" onchange="getfolder(event)" webkitdirectory mozdirectory msdirectory odirectory directory multiple />
+                <a href="{{ url_for('home.visualizer') }}" id="home-nav" class="active">Visualizer</a>
             </div>
         </nav>
       </header>
