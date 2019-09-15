@@ -1,11 +1,14 @@
 import os
 import json
+import importlib
+import profanity_check
+
 
 def message_counter():
     """
     Goes thru the JSON of the messages and counts the number of times you have messaged that person
     """
-    rootdir_messages = './application/data/messages/inbox'
+    rootdir_messages = './application/data_local/messages/inbox'
     temp_file_dir = './temp_data.json'
 
     '''
@@ -37,11 +40,12 @@ def message_counter():
             message_thread['conv_name'] = conv_name
 
             # Add the number of participants
-            message_thread['participant_count'] = len(conversation['participants'])
+            message_thread['participant_count'] = len(
+                conversation['participants'])
             message_thread['participants'] = dict()
             for participant in conversation['participants']:
                 name = participant['name']
-                message_thread['participants'][name] = {'sent_msg_count':0}
+                message_thread['participants'][name] = {'sent_msg_count': 0, 'profanity_count': 0}
                 print(name)
 
             # Create a dict for the statistics
@@ -49,19 +53,24 @@ def message_counter():
             stats['total_msg_count'] = len(conversation['messages'])
             if int(stats['total_msg_count']) > int(wrapper['max_total_msgs']):
                 wrapper['max_total_msgs'] = stats['total_msg_count']
-    
+
+						# Analyze messages in conversation
             for msg in conversation['messages']:
-                sender = msg['sender_name'] 
-                if(sender not in message_thread['participants']):
-                    message_thread['participants'][sender] = {'sent_msg_count': 0}
-                    
+                sender = msg['sender_name']
+
+				# Get sent message count of each user
+                if (sender not in message_thread['participants']):
+                    message_thread['participants'][sender] = {'sent_msg_count': 0, 'profanity_count': 0}
+
                 message_thread['participants'][sender]['sent_msg_count'] += 1
-                    
+                if ('content' in msg.keys()):
+                    message_thread['participants'][sender]['profanity_count'] += int(profanity_check.predict([msg['content']])) # Profanity count
+			
             message_thread['statistics'] = stats
             
             conversation_data.append(message_thread)
 
-    # print(conversation_data)
+            # print(conversation_data)
     
     
     wrapper['conversation_data'] = conversation_data
