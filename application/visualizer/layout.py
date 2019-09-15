@@ -14,6 +14,14 @@ layout = html.Div(style={'backgroundColor':colors['background']}, children=[
         children='My Network',
         style={
             'textAlign': 'center',
+            'color': 'black'
+        }
+
+    ),
+    html.H4(
+        children='The friends and groups you engage with most.',
+        style={
+            'textAlign': 'center',
             'color':colors['text']
         }
 
@@ -26,16 +34,59 @@ layout = html.Div(style={'backgroundColor':colors['background']}, children=[
     #     }
     # ),
 
-    html.Div([
-        dcc.Graph(id='bubble-graph', style={'height':900}),
-        dcc.Input(id='hidden', type='hidden')
-    ])    
-
     # html.Div([
-    #     dash_dangerously_set_inner_html.DangerouslySetInnerHTML('''
-    #         <script>(function(t,e,s,n){var o,a,c;t.SMCX=t.SMCX||[],e.getElementById(n)||(o=e.getElementsByTagName(s),a=o[o.length-1],c=e.createElement(s),c.type="text/javascript",c.async=!0,c.id=n,c.src=["https:"===location.protocol?"https://":"http://","widget.surveymonkey.com/collect/website/js/tRaiETqnLgj758hTBazgd7WnuXmrKllSQSuChpOpd0l8AutWppLPTnkxqDkGVIZL.js"].join(""),a.parentNode.insertBefore(c,a))})(window,document,"script","smcx-sdk");</script>
-	#         <a style="font: 12px Helvetica, sans-serif; color: #999; text-decoration: none;" href=https://www.surveymonkey.com> Create your own user feedback survey </a>
-    #     '''),
-    # ])
+    #     dcc.Graph(id='bubble-graph', style={'height':900}),
+    #     dcc.Input(id='hidden', type='hidden')
+    # ]), 
+
+    # html.A('Test', href='https://www.surveymonkey.com', style={'font':'12px Helvetica, sans-serif', 
+    #                                                            'color': '#999', 'text-decoration': 'none'}),
+	# html.Script(type='text/javascript', children='./survey.js')
+
+    html.H1(
+        children='Profanity Check',
+        style={
+            'textAlign': 'center',
+            'color':'black'
+        }
+
+    ),
+    html.H4(
+        children='Everyone has a potty mouth. How bad is yours?',
+        style={
+            'textAlign': 'center',
+            'color':colors['text']
+        }
+
+    ),
+    
+    # html.Div([
+    #     dcc.Graph(id='profanity', style={'height':600}),
+    #     dcc.Input(id='hidden', type='hidden')
+    # ])  
+
+
+
+    html.H1(
+        children='Abbreviation Check',
+        style={
+            'textAlign': 'center',
+            'color':'black'
+        }
+
+    ),
+    html.H4(
+        children='LOL. BRB. TY. How often do you and your friends abbreviate in your messages?',
+        style={
+            'textAlign': 'center',
+            'color':colors['text']
+        }
+
+    ),
+    
+    html.Div([
+        dcc.Graph(id='abbreviation', style={'height':600}),
+        dcc.Input(id='hidden', type='hidden')
+    ])      
 
 ])
