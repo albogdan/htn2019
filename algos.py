@@ -53,9 +53,9 @@ def message_counter():
             for msg in conversation['messages']:
                 sender = msg['sender_name'] 
                 if(sender not in message_thread['participants']):
-                    message_thread['participants'][sender] = {'sent_msg_count':0}
+                    message_thread['participants'][sender] = {'sent_msg_count': 0}
                     
-                message_thread['participants'][sender]['sent_msg_count'] =1
+                message_thread['participants'][sender]['sent_msg_count'] += 1
                     
             message_thread['statistics'] = stats
             
