@@ -78,8 +78,48 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 #         fig = go.Bar(
 #             x = [(convo['conv_name']) for index,convo in zip(range(12), df['conversation_data'])],
 #             y = [convo['statistics']['total_profanity_count'] for convo in df['conversation_data']],
-#             hovertext = [convo['statistics']['total_profanity_count'] for convo in df['conversation_data']],
-#             hoverinfo="text",
+#             text = [round(convo['statistics']['total_sentiment'],2) for convo in df['conversation_data']],
+#             textposition="outside",
+#             hoverinfo="none",
+#             opacity=0.7,
+#             marker = dict(
+#                 color = 'pink', 
+#                 line=dict(color = 'white', width = 0.5)
+#             )
+#         ),
+#         layout = go.Layout(
+#         )
+
+#         return {'data':fig}
+
+
+
+# def register_callbacks(dashapp):
+#     @dashapp.callback(
+#             Output('abbreviation', 'figure'),
+#             [Input('hidden','value')]
+#         )
+#     def update_graph(hidden2):
+#         path = os.path.join(BASE_DIR, 'temp_data_abbreviation.json')
+#         openfile=open(path, 'r')
+#         jsondata=json.load(openfile)
+#         df=pd.DataFrame(jsondata)
+
+#         openfile.close()
+#         max_msgs = df['max_total_msgs'][0]
+
+#         # df = pd.read_json('./temp_data.json', lines = True)
+#         fig = go.Bar(
+#             x = [(convo['conv_name']) for index,convo in zip(range(12), df['conversation_data'])],
+#             y = [convo['statistics']['total_abbreviation_count'] for convo in df['conversation_data']],
+#             text = [round(convo['statistics']['total_sentiment'],2) for convo in df['conversation_data']],
+#             textposition="outside",
+#             hoverinfo="none",
+#             opacity=0.7,
+#             marker = dict(
+#                 color = 'blue', 
+#                 line=dict(color = 'white', width = 0.5)
+#             )
 #         ),
 #         layout = go.Layout(
 #         )
@@ -90,11 +130,11 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 def register_callbacks(dashapp):
     @dashapp.callback(
-            Output('abbreviation', 'figure'),
+            Output('positive_sentiment', 'figure'),
             [Input('hidden','value')]
         )
-    def update_graph(hidden2):
-        path = os.path.join(BASE_DIR, 'temp_data_abbreviation.json')
+    def update_graph(hidden):
+        path = os.path.join(BASE_DIR, 'temp_data_sentiment.json')
         openfile=open(path, 'r')
         jsondata=json.load(openfile)
         df=pd.DataFrame(jsondata)
@@ -105,9 +145,47 @@ def register_callbacks(dashapp):
         # df = pd.read_json('./temp_data.json', lines = True)
         fig = go.Bar(
             x = [(convo['conv_name']) for index,convo in zip(range(12), df['conversation_data'])],
-            y = [convo['statistics']['total_abbreviation_count'] for convo in df['conversation_data']],
-            hovertext = [convo['statistics']['total_abbreviation_count'] for convo in df['conversation_data']],
-            hoverinfo="text",
+            y = [convo['statistics']['total_sentiment'] for convo in df['conversation_data']],
+            text = [round(convo['statistics']['total_sentiment'],2) for convo in df['conversation_data']],
+            textposition="outside",
+            hoverinfo="none",
+            opacity=0.7,
+            marker = dict(
+                color = 'green', 
+                line=dict(color = 'white', width = 0.5)
+            )
+        ),
+        layout = go.Layout(
+        )
+
+        return {'data':fig}
+
+def register_callbacks(dashapp):
+    @dashapp.callback(
+            Output('negative_sentiment', 'figure'),
+            [Input('hidden_negative_sentiment','value')]
+        )
+    def update_graph(hidden):
+        path = os.path.join(BASE_DIR, 'temp_data_sentiment_negative.json')
+        openfile=open(path, 'r')
+        jsondata=json.load(openfile)
+        df=pd.DataFrame(jsondata)
+
+        openfile.close()
+        max_msgs = df['max_total_msgs'][0]
+
+        # df = pd.read_json('./temp_data.json', lines = True)
+        fig = go.Bar(
+            x = [(convo['conv_name']) for index,convo in zip(range(12), df['conversation_data'])],
+            y = [convo['statistics']['total_sentiment'] for convo in df['conversation_data']],
+            text = [round(convo['statistics']['total_sentiment'],2) for convo in df['conversation_data']],
+            textposition="outside",
+            hoverinfo="none",
+            opacity=0.7,
+            marker = dict(
+                color = 'red', 
+                line=dict(color = 'white', width = 0.5)
+            )
         ),
         layout = go.Layout(
         )

@@ -63,7 +63,7 @@ layout = html.Div(style={'backgroundColor':colors['background']}, children=[
     # html.Div([
     #     dcc.Graph(id='profanity', style={'height':600}),
     #     dcc.Input(id='hidden', type='hidden')
-    # ])  
+    # ]) , 
 
 
 
@@ -84,9 +84,56 @@ layout = html.Div(style={'backgroundColor':colors['background']}, children=[
 
     ),
     
+    # html.Div([
+    #     dcc.Graph(id='abbreviation', style={'height':600}),
+    #     dcc.Input(id='hidden', type='hidden')
+    # ]),   
+    
+    
+    
+    html.H1(
+        children='Positive Sentiment',
+        style={
+            'textAlign': 'center',
+            'color':'black'
+        }
+
+    ),
+    html.H4(
+        children='How positive are you in your messages with your friends?',
+        style={
+            'textAlign': 'center',
+            'color':colors['text']
+        }
+
+    ),
+    
     html.Div([
-        dcc.Graph(id='abbreviation', style={'height':600}),
+        dcc.Graph(id='positive_sentiment', style={'height':600}),
         dcc.Input(id='hidden', type='hidden')
-    ])      
+    ]),
+
+
+    html.H1(
+        children='Negative Sentiment',
+        style={
+            'textAlign': 'center',
+            'color':'black'
+        }
+
+    ),
+    html.H4(
+        children='How negative are you in your messages with your friends?',
+        style={
+            'textAlign': 'center',
+            'color':colors['text']
+        }
+
+    ),
+    
+    html.Div([
+        dcc.Graph(id='negative_sentiment', style={'height':600}),
+        dcc.Input(id='hidden_negative_sentiment', type='hidden')
+    ])          
 
 ])

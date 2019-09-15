@@ -2,6 +2,7 @@ import os
 import json
 import importlib
 import profanity_check
+from textblob import TextBlob
 
 
 def message_counter():
@@ -12,6 +13,8 @@ def message_counter():
     temp_file_dir = './application/visualizer/temp_data.json'
     temp_file_dir_profanity = './application/visualizer/temp_data_profanity.json'
     temp_file_dir_abbreviation = './application/visualizer/temp_data_abbreviation.json'
+    temp_file_dir_sentiment = './application/visualizer/temp_data_sentiment.json'
+    temp_file_dir_sentiment_negative = './application/visualizer/temp_data_sentiment_negative.json'
 
     '''
     [
@@ -47,7 +50,7 @@ def message_counter():
             message_thread['participants'] = dict()
             for participant in conversation['participants']:
                 name = participant['name']
-                message_thread['participants'][name] = {'sent_msg_count': 0, 'profanity_count': 0, 'abbreviation_count': 0}
+                message_thread['participants'][name] = {'sent_msg_count': 0, 'profanity_count': 0, 'abbreviation_count': 0, 'sentiment': 0}
                 #print(name)
 
             # Create a dict for the statistics
@@ -55,6 +58,7 @@ def message_counter():
             stats['total_msg_count'] = len(conversation['messages'])
             stats['total_profanity_count'] = 0
             stats['total_abbreviation_count'] = 0
+            stats['total_sentiment'] = 0
             if int(stats['total_msg_count']) > int(wrapper['max_total_msgs']):
                 wrapper['max_total_msgs'] = stats['total_msg_count']
 
@@ -64,7 +68,7 @@ def message_counter():
 
 				# Get sent message count of each user
                 if (sender not in message_thread['participants']):
-                    message_thread['participants'][sender] = {'sent_msg_count': 0, 'profanity_count': 0, 'abbreviation_count': 0}
+                    message_thread['participants'][sender] = {'sent_msg_count': 0, 'profanity_count': 0, 'abbreviation_count': 0, 'sentiment': 0}
 
                 message_thread['participants'][sender]['sent_msg_count'] += 1
                 if ('content' in msg.keys()):
@@ -72,6 +76,8 @@ def message_counter():
                     stats['total_profanity_count'] += int(profanity_check.predict([msg['content']]))
                     message_thread['participants'][sender]['abbreviation_count'] += int(countAbbreviations(str([msg['content']])))
                     stats['total_abbreviation_count'] += int(countAbbreviations(str([msg['content']])))
+                    message_thread['participants'][sender]['sentiment'] += float(determinePolarity(str([msg['content']])))
+                    stats['total_sentiment'] += float(determinePolarity(str([msg['content']])))
 
             message_thread['statistics'] = stats
             
@@ -97,7 +103,31 @@ def message_counter():
     with open(temp_file_dir_abbreviation, 'w') as temp_file:
         temp_file.write(json.dumps(wrapper, indent=4))
 
+    conversation_data.sort(key=lambda message_thread: message_thread['statistics']['total_sentiment'], reverse = True)
+    wrapper['conversation_data'] = conversation_data
+    with open(temp_file_dir_sentiment, 'w') as temp_file:
+        temp_file.write(json.dumps(wrapper, indent=4))
+
+    conversation_data.sort(key=lambda message_thread: message_thread['statistics']['total_sentiment'], reverse = False)
+    wrapper['conversation_data'] = conversation_data
+    with open(temp_file_dir_sentiment_negative, 'w') as temp_file:
+        temp_file.write(json.dumps(wrapper, indent=4))
+        
+
     return conversation_data
+
+
+def determinePolarity(str):
+    polarity = 0.0
+
+    blob = TextBlob(str)
+    for sentence in blob.sentences:
+        polarity += sentence.sentiment.polarity; 
+
+    return polarity
+
+
+
 
 def countAbbreviations(str):
     numAbbreviations = 0
