@@ -165,7 +165,8 @@ def register_callbacks(dashapp):
             y = [convo['statistics']['total_sentiment'] for convo in df_neg['conversation_data']],
             text = [round(convo['statistics']['total_sentiment'],2) for convo in df_neg['conversation_data']],
             textposition="outside",
-            hoverinfo="none",
+            hoverinfo="text",
+            hovertext=[breakdown(convo, 'negative') for convo in df_neg['conversation_data']],
             opacity=0.7,
             marker = dict(
                 color = 'red', 
