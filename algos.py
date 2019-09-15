@@ -72,6 +72,8 @@ def message_counter():
 
             # print(conversation_data)
     
+    # Sort conversation_data by total_msg_count
+    conversation_data.sort(key=lambda message_thread: message_thread['statistics']['total_msg_count'])
     
     wrapper['conversation_data'] = conversation_data
 

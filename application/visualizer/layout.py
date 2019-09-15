@@ -5,7 +5,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_dangerously_set_inner_html
 colors = {
-    'background': '#111111',
+    'background': '#0',
     'text': '#7FDBFF'
 }
 

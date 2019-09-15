@@ -32,33 +32,34 @@ def register_callbacks(dashapp):
 
         # df = pd.read_json('./temp_data.json', lines = True)
         fig = go.Scatter(
-            x = [int(convo['statistics']['total_msg_count']) for convo in df['conversation_data']],#['gdp per capita'],
-            y = [int(convo['participant_count']) for convo in df['conversation_data']],#['life expectancy'],
-            text = [convo['conv_name'] for convo in df['conversation_data']],
-            mode='markers',
+            x = [0, 200, -160, 0, 0, 110, -90, 110, -80, 80, -100, 200, 200, -175, 100, 175, 200, 100, -100, -180, -175, -175],
+            y = [0, 0, 10, 160, -150, 30, 90, -80, -90, 110, 175, 100, -200, -150, -175, 160, -100, 190, -200, -83, 100, 170],
+            text = [(convo['conv_name'] + '<br>' + str(convo['statistics']['total_msg_count'])) for convo in df['conversation_data']],
+            textposition="middle center",
+            hoverinfo="none",
+            mode='markers + text',
             opacity=0.7,
             marker={
-                'size': [20*math.sqrt((256/max_msgs)*int(convo['statistics']['total_msg_count'])) for convo in df['conversation_data']],
+                'size': [200, 150, 150, 120, 120, 120, 120, 120, 120, 100, 90, 90, 90, 90, 80, 70, 70, 70, 70, 60, 50, 50, 50],
                 'line': {'width': 0.5, 'color': 'white'}
             },
             showlegend = False,
-            name="name"
+            name="name",
+            textfont=dict(
+                family = "Arial", 
+                size = 18, 
+                color = "black"
+            )
         ),
         layout = go.Layout(
             height=900, 
             xaxis={
                 'title': 'x-axis',
                 'type': 'linear', #if xaxis_type == 'Linear' else 'log'
-                'showgrid': False,
-                'zeroline': False,
-                'showticklabels': False
             },
             yaxis={
                 'title': 'y-axis ',
                 'type': 'linear', #if yaxis_type == 'Linear' else 'log'
-                'showgrid': False,
-                'zeroline': False,
-                'showticklabels': False
             }
         )
 
