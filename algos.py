@@ -87,31 +87,29 @@ def message_counter():
     
     # Sort conversation_data by total_msg_count
     conversation_data.sort(key=lambda message_thread: message_thread['statistics']['total_msg_count'], reverse = True)
-    
     wrapper['conversation_data'] = conversation_data
-
     with open(temp_file_dir, 'w') as temp_file:
         temp_file.write(json.dumps(wrapper, indent=4))
 
     conversation_data.sort(key=lambda message_thread: message_thread['statistics']['total_profanity_count'], reverse = True)
     wrapper['conversation_data'] = conversation_data
-    with open(temp_file_dir_profanity, 'w') as temp_file:
-        temp_file.write(json.dumps(wrapper, indent=4))
+    with open(temp_file_dir_profanity, 'w') as temp_file_profanity:
+        temp_file_profanity.write(json.dumps(wrapper, indent=4))
 
     conversation_data.sort(key=lambda message_thread: message_thread['statistics']['total_abbreviation_count'], reverse = True)
     wrapper['conversation_data'] = conversation_data
-    with open(temp_file_dir_abbreviation, 'w') as temp_file:
-        temp_file.write(json.dumps(wrapper, indent=4))
+    with open(temp_file_dir_abbreviation, 'w') as temp_file_abbreviation:
+        temp_file_abbreviation.write(json.dumps(wrapper, indent=4))
 
     conversation_data.sort(key=lambda message_thread: message_thread['statistics']['total_sentiment'], reverse = True)
     wrapper['conversation_data'] = conversation_data
-    with open(temp_file_dir_sentiment, 'w') as temp_file:
-        temp_file.write(json.dumps(wrapper, indent=4))
+    with open(temp_file_dir_sentiment, 'w') as temp_file_sentiment:
+        temp_file_sentiment.write(json.dumps(wrapper, indent=4))
 
     conversation_data.sort(key=lambda message_thread: message_thread['statistics']['total_sentiment'], reverse = False)
     wrapper['conversation_data'] = conversation_data
-    with open(temp_file_dir_sentiment_negative, 'w') as temp_file:
-        temp_file.write(json.dumps(wrapper, indent=4))
+    with open(temp_file_dir_sentiment_negative, 'w') as temp_file_sentiment_negative:
+        temp_file_sentiment_negative.write(json.dumps(wrapper, indent=4))
         
 
     return conversation_data

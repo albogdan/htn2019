@@ -74,9 +74,10 @@ def register_callbacks(dashapp):
         fig_profanity = go.Bar(
             x = [(convo['conv_name']) for index,convo in zip(range(12), df_profanity['conversation_data'])],
             y = [convo['statistics']['total_profanity_count'] for convo in df_profanity['conversation_data']],
-            text = [round(convo['statistics']['total_sentiment'],2) for convo in df_profanity['conversation_data']],
+            text = [round(convo['statistics']['total_profanity_count'],2) for convo in df_profanity['conversation_data']],
             textposition="outside",
-            hoverinfo="none",
+            hoverinfo="text",
+            hovertext=[breakdown(convo, 'profanity') for convo in df_profanity['conversation_data']],
             opacity=0.7,
             marker = dict(
                 color = 'pink', 
@@ -103,9 +104,10 @@ def register_callbacks(dashapp):
         fig_abb = go.Bar(
             x = [(convo['conv_name']) for index,convo in zip(range(12), df_abb['conversation_data'])],
             y = [convo['statistics']['total_abbreviation_count'] for convo in df_abb['conversation_data']],
-            text = [round(convo['statistics']['total_sentiment'],2) for convo in df_abb['conversation_data']],
+            text = [round(convo['statistics']['total_abbreviation_count'],2) for convo in df_abb['conversation_data']],
             textposition="outside",
-            hoverinfo="none",
+            hoverinfo="text",
+            hovertext=[breakdown(convo, 'abbreviation') for convo in df_abb['conversation_data']],
             opacity=0.7,
             marker = dict(
                 color = 'blue', 
@@ -134,7 +136,8 @@ def register_callbacks(dashapp):
             y = [convo['statistics']['total_sentiment'] for convo in df_pos['conversation_data']],
             text = [round(convo['statistics']['total_sentiment'],2) for convo in df_pos['conversation_data']],
             textposition="outside",
-            hoverinfo="none",
+            hoverinfo="text",
+            hovertext=[breakdown(convo, 'positive') for convo in df_pos['conversation_data']],
             opacity=0.7,
             marker = dict(
                 color = 'green', 
@@ -172,3 +175,17 @@ def register_callbacks(dashapp):
         layout = go.Layout(
         )
         return {'data':fig_neg}
+
+
+def breakdown(convo, mode):
+    toReturn = ''; 
+
+    for sender in convo['participants']:
+        if (mode == 'profanity'):
+            toReturn = toReturn + str(sender) + ": " + str(convo['participants'][sender]['profanity_count']) + "<br>"
+        elif(mode == 'abbreviation'):
+            toReturn = toReturn + str(sender) + ": " + str(convo['participants'][sender]['abbreviation_count']) + "<br>"
+        elif(mode == 'positive' or mode == 'negative'): 
+            toReturn = toReturn + str(sender) + ": " + str(round(convo['participants'][sender]['sentiment'],2)) + "<br>"
+
+    return toReturn; 
