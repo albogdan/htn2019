@@ -35,10 +35,10 @@ layout = html.Div(style={'backgroundColor':colors['background']}, children=[
     #     }
     # ),
 
-    # html.Div([
-    #     dcc.Graph(id='bubble-graph', style={'height':900}),
-    #     dcc.Input(id='hidden', type='hidden')
-    # ]), 
+    html.Div([
+        dcc.Graph(id='bubble-graph', style={'height':900}),
+        dcc.Input(id='hidden', type='hidden')
+    ]), 
 
     # html.A('Test', href='https://www.surveymonkey.com', style={'font':'12px Helvetica, sans-serif', 
     #                                                            'color': '#999', 'text-decoration': 'none'}),
@@ -61,10 +61,10 @@ layout = html.Div(style={'backgroundColor':colors['background']}, children=[
 
     ),
     
-    # html.Div([
-    #     dcc.Graph(id='profanity', style={'height':600}),
-    #     dcc.Input(id='hidden', type='hidden')
-    # ]) , 
+    html.Div([
+        dcc.Graph(id='profanity', style={'height':600}),
+        dcc.Input(id='hidden_profanity', type='hidden')
+    ]) , 
 
 
 
@@ -85,10 +85,10 @@ layout = html.Div(style={'backgroundColor':colors['background']}, children=[
 
     ),
     
-    # html.Div([
-    #     dcc.Graph(id='abbreviation', style={'height':600}),
-    #     dcc.Input(id='hidden', type='hidden')
-    # ]),   
+    html.Div([
+        dcc.Graph(id='abbreviation', style={'height':600}),
+        dcc.Input(id='hidden_abb', type='hidden')
+    ]),   
     
     
     
@@ -111,7 +111,7 @@ layout = html.Div(style={'backgroundColor':colors['background']}, children=[
     
     html.Div([
         dcc.Graph(id='positive_sentiment', style={'height':600}),
-        dcc.Input(id='hidden', type='hidden')
+        dcc.Input(id='hidden_pos', type='hidden')
     ]),
 
 
@@ -132,9 +132,9 @@ layout = html.Div(style={'backgroundColor':colors['background']}, children=[
 
     ),
     
-    # html.Div([
-    #     dcc.Graph(id='negative_sentiment', style={'height':600}),
-    #     dcc.Input(id='hidden_negative_sentiment', type='value')
-    # ])          
+    html.Div([
+        dcc.Graph(id='negative_sentiment', style={'height':600}),
+        dcc.Input(id='hidden_neg', type='hidden')
+    ])          
 
 ])
