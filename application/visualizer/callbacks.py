@@ -43,7 +43,8 @@ def register_callbacks(dashapp):
             y = [0, 0, 10, 160, -150, 30, 90, -80, -90, 110, 175, 100, -200, -150, -175, 160, -100, 190, -200, -83, 100, 170],
             text = [(convo['conv_name'] + '<br>' + str(convo['statistics']['total_msg_count'])) for convo in df['conversation_data']],
             textposition="middle center",
-            hoverinfo="none",
+            hoverinfo="text",
+            hovertext=[breakdown(convo, 'messages') for convo in df['conversation_data']],
             mode='markers + text',
             opacity=0.7,
             marker = dict(
@@ -195,5 +196,7 @@ def breakdown(convo, mode):
             toReturn = toReturn + str(sender) + ": " + str(convo['participants'][sender]['abbreviation_count']) + "<br>"
         elif(mode == 'positive' or mode == 'negative'): 
             toReturn = toReturn + str(sender) + ": " + str(round(convo['participants'][sender]['sentiment'],2)) + "<br>"
+        elif(mode == 'messages'): 
+            toReturn = toReturn + str(sender) + ": " + str(convo['participants'][sender]['sent_msg_count']) + "<br>"
 
     return toReturn; 
