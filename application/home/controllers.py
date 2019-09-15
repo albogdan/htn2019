@@ -16,7 +16,11 @@ def index():
     content = "Hello, the time is " + formatted_now
     return render_template('home/index.html', key=formatted_now)
 
-
+    
 @home.route('/visualize')
 def visualizer():
     return redirect('visualizer')
+
+@home.route('/survey')
+def survey():
+    return redirect('survey')
