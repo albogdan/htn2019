@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 # Define the application directory
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+UPLOAD_FOLDER_PATH = os.path.join(BASE_DIR, 'uploads')
 
 # Load the environment file
 load_dotenv(os.path.join(BASE_DIR, '.flaskenv'))
@@ -16,6 +17,7 @@ class DevelopmentConfig(object):
     CSRF_ENABLED = True
     SECRET_KEY = "secret"
     CORS_HEADERS = 'Content-Type'
+    UPLOAD_FOLDER = UPLOAD_FOLDER_PATH
 
 
 # ProductionConfig class to encapsulate the config varaibles

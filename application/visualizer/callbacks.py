@@ -8,12 +8,15 @@ import pandas as pd
 import plotly.graph_objs as go
 import math
 import json
+from flask import session
+
 
 # def register_callbacks(dashapp):
 #     @dashapp.callback(Output('example-graph', 'figure'))
 #     def update_graph(selected_dropdown_value):
 #         print("test 1")
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+from config import BASE_DIR
+UPLOAD_FOLDER_PATH = os.path.join(BASE_DIR, 'uploads')
 
 
 def register_callbacks(dashapp):
@@ -22,7 +25,11 @@ def register_callbacks(dashapp):
             [Input('hidden','value')]
         )
     def update_graph(hidden):
-        path = os.path.join(BASE_DIR, 'temp_data.json')
+        print("THIS SESSION'S DATAFILE NAME:", session['data_file'])
+        #     rootdir_messages = os.path.join(UPLOAD_FOLDER_PATH, session['data_file'], 'messages/inbox')
+        #     temp_file_dir = os.path.join(UPLOAD_FOLDER_PATH, session['data_file'], 'temp_data.json')
+
+        path = os.path.join(UPLOAD_FOLDER_PATH, session['data_file'], 'temp_data.json')
         openfile=open(path, 'r')
         jsondata=json.load(openfile)
         df=pd.DataFrame(jsondata)
@@ -64,7 +71,7 @@ def register_callbacks(dashapp):
             [Input('hidden_profanity','value')]
         )
     def update_graph_profanity(hidden):
-        path_profanity = os.path.join(BASE_DIR, 'temp_data_profanity.json')
+        path_profanity = os.path.join(UPLOAD_FOLDER_PATH, session['data_file'], 'temp_data_profanity.json')
         openfile_profanity=open(path_profanity, 'r')
         jsondata_profanity=json.load(openfile_profanity)
         df_profanity=pd.DataFrame(jsondata_profanity)
@@ -94,7 +101,7 @@ def register_callbacks(dashapp):
             [Input('hidden_abb','value')]
         )
     def update_graph_abb(hidden):
-        path_abb = os.path.join(BASE_DIR, 'temp_data_abbreviation.json')
+        path_abb = os.path.join(UPLOAD_FOLDER_PATH, session['data_file'], 'temp_data_abbreviation.json')
         openfile_abb=open(path_abb, 'r')
         jsondata_abb=json.load(openfile_abb)
         df_abb=pd.DataFrame(jsondata_abb)
@@ -124,7 +131,7 @@ def register_callbacks(dashapp):
             [Input('hidden_pos','value')]
         )
     def update_graph_pos(hidden):
-        path_pos = os.path.join(BASE_DIR, 'temp_data_sentiment.json')
+        path_pos = os.path.join(UPLOAD_FOLDER_PATH, session['data_file'], 'temp_data_sentiment.json')
         openfile_pos=open(path_pos, 'r')
         jsondata_pos=json.load(openfile_pos)
         df_pos=pd.DataFrame(jsondata_pos)
@@ -153,7 +160,7 @@ def register_callbacks(dashapp):
             [Input('hidden_neg','value')]
         )
     def update_graph_neg(hidden):
-        path_neg = os.path.join(BASE_DIR, 'temp_data_sentiment_negative.json')
+        path_neg = os.path.join(UPLOAD_FOLDER_PATH, session['data_file'], 'temp_data_sentiment_negative.json')
         openfile_neg=open(path_neg, 'r')
         jsondata_neg=json.load(openfile_neg)
         df_neg=pd.DataFrame(jsondata_neg)

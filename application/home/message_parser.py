@@ -1,88 +1,11 @@
 import os
-from flask import Blueprint, request, render_template, flash, session, redirect, url_for
-from datetime import datetime
-
-from config import DevelopmentConfig, ProductionConfig, BASE_DIR
-# Import form to upload file
-from application.home.forms import UploadForm
-# Import files for logging in
-
-from werkzeug.utils import secure_filename
-
-#import message_parser
-#from message_parser import message_counter, determinePolarity, countAbbreviations
-# Import the homepage Blueprint from home/__init__.py
-from application.home import home
-import uuid
-
-from flask import session
-import zipfile
+import json
 import importlib
 import profanity_check
-import json
 from textblob import TextBlob
-
+from flask import session
+from config import BASE_DIR
 UPLOAD_FOLDER_PATH = os.path.join(BASE_DIR, 'uploads')
-
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'zip'])
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-
-@home.route('/', methods=['GET', 'POST'])
-@home.route('/index', methods=['GET', 'POST'])
-def index():
-    form = UploadForm()
-    if(form.validate_on_submit()):
-        #filename = secure_filename(form.fileName)
-        filename = form.fileName
-        print("FILE:", filename.__dict__)
-        # print("NAME", filename.data.FileStorage)
-        file_path = os.path.join(UPLOAD_FOLDER_PATH, str(uuid.uuid1()))
-        zip_path = os.path.join(UPLOAD_FOLDER_PATH, 'zipfile.zip')
-        filename.data.save(zip_path)
-        session['data_file'] = file_path
-        os.mkdir(file_path)
-        zip_ref = zipfile.ZipFile(zip_path, 'r')
-        
-        zip_ref.extractall(file_path)
-        zip_ref.close()
-        message_counter()
-        return redirect('visualizer')
-    return render_template('home/index.html', form=form)
-
-# @home.route('uploadFile', methods = ['GET', 'POST'])
-# def file_upload():
-#     print("file submitted")
-# #     return render_template('home/index.html')
-#     if(request.method == 'POST'):
-#         # check if the post request has the file part
-#         print("form", request.form.__dict__)
-
-#         if('file' not in request.files):
-#             print("No file part")
-#             flash('No file part')
-#             return redirect(request.url)
-#         print(request.__dict__)
-#         file = request.files['file']
-#         # if user does not select file, browser also
-#         # submit an empty part without filename
-#         if(file.filename == ''):
-#             print("No selected file")
-#             flash('No selected file')
-#             return redirect(request.url)
-#         if(file and allowed_file(file.filename)):
-#             print("file allowed")
-#             filename = secure_filename(file.filename)
-#             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-#             return redirect(url_for('uploaded_file',
-#                                     filename=filename))
-#     return render_template('home/index.html')
-
-
-
 
 
 def message_counter():
@@ -277,15 +200,3 @@ if __name__ == '__main__':
 2. For each chat, bar(or w/e) graph of how much each person talked on it
     a) Data structure of each chat w/ participants and number of msgs per participant
 """
-
-
-
-    
-@home.route('/visualize')
-def visualizer():
-    return redirect('visualizer')
-
-@home.route('/survey')
-def survey():
-    return redirect('survey')
-

@@ -65,7 +65,20 @@
 
         <div class = "nameText"> VISUALIZR </div>
         <div class = "quoteHeader" id = "quoteHeader"> Upload your Social Media data below! </div>
-    
+        <form action="" method="post" name="simple" enctype="multipart/form-data">
+          {{ form.hidden_tag() }}
+            <p>
+               
+                 {{form.fileName(id="uploadlink")}}
+             </p>
+            <p><input type="submit" id='home-nav' value="Submit"></p>
+         
+          <!--input type="file" id="uploadlink" accept="*" webkitdirectory mozdirectory msdirectory odirectory directory multiple /-->
+          <!--input type="file" id="uploadlink" onchange="getfolder(event)" webkitdirectory mozdirectory msdirectory odirectory directory multiple /-->
+          <!--a href="{{ url_for('home.visualizer') }}" id="home-nav" class="active"-->
+          <!--input type="submit" value="Visualizer"-->
+        <!--/a-->
+        </form>
       </div>
 
 </body>
