@@ -24,7 +24,7 @@ joblib==0.13.2
 Mako==1.0.10
 MarkupSafe==1.1.1
 nltk==3.4.5
-numpy==1.17.2
+numpy==1.22.0
 pandas==0.25.1
 plotly==4.1.1
 profanity-check==1.0.3
